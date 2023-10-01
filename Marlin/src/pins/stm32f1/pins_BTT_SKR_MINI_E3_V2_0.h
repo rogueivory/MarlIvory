@@ -77,6 +77,8 @@
   #define CONTROLLER_FAN_PIN            FAN1_PIN
 #endif
 
+#define BEEPER_PIN -1 //> added to disable on-board beeper, was PB5
+
 #if HAS_TMC_UART
   /**
    * TMC220x stepper drivers
