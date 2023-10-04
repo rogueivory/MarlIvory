@@ -23,6 +23,8 @@
 
 #include "env_validate.h"
 
+#define DISABLE_BEEPER_PIN
+
 // Release PB3/PB4 (E0 STP/DIR) from JTAG pins
 #define DISABLE_JTAG
 
@@ -153,7 +155,12 @@
     #error "CAUTION! Ender-3 V2 display requires a custom cable. See 'pins_BTT_SKR_MINI_E3_common.h' for details. (Define NO_CONTROLLER_CUSTOM_WIRING_WARNING to suppress this warning.)"
   #endif
 
-  #define BEEPER_PIN                 EXP1_02_PIN
+  #if ENABLED(DISABLE_BEEPER_PIN) 
+    #define BEEPER_PIN               -1
+  #else
+    #define BEEPER_PIN               EXP1_02_PIN
+  #endif
+
   #define BTN_EN1                    EXP1_08_PIN
   #define BTN_EN2                    EXP1_07_PIN
   #define BTN_ENC                    EXP1_01_PIN
@@ -162,7 +169,11 @@
 
   #if ENABLED(CR10_STOCKDISPLAY)
 
-    #define BEEPER_PIN               EXP1_01_PIN
+    #if ENABLED(DISABLE_BEEPER_PIN) 
+      #define BEEPER_PIN               -1
+    #else
+      #define BEEPER_PIN               EXP1_01_PIN
+    #endif             
 
     #define BTN_ENC                  EXP1_02_PIN
     #define BTN_EN1                  EXP1_03_PIN
@@ -193,7 +204,11 @@
      *            ------                   ------
      *             EXP1                     EXP1
      */
-    #define BEEPER_PIN               EXP1_08_PIN
+    #if ENABLED(DISABLE_BEEPER_PIN) 
+      #define BEEPER_PIN               -1
+    #else
+      #define BEEPER_PIN               EXP1_08_PIN
+    #endif        
 
     #define BTN_ENC                  EXP1_06_PIN
     #define BTN_EN1                  EXP1_02_PIN
@@ -378,8 +393,12 @@
    */
 
   #define CLCD_SPI_BUS 1                          // SPI1 connector
-
-  #define BEEPER_PIN                 EXP1_02_PIN
+  
+  #if ENABLED(DISABLE_BEEPER_PIN) 
+    #define BEEPER_PIN               -1
+  #else
+    #define BEEPER_PIN               EXP1_02_PIN
+  #endif       
 
   #define CLCD_MOD_RESET             EXP1_03_PIN
   #define CLCD_SPI_CS                EXP1_07_PIN

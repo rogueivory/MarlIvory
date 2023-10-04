@@ -23,6 +23,8 @@
 		#define SOFT_PWM_SCALE 0
 	#endif
 
+	#define DIAG_JUMPERS_REMOVED //suppress SENSORLESS_HOMING disabled warning
+
 // **************************** Preheat Constants *************************** //
 
 	#define PREHEAT_1_LABEL       "Warmup"
@@ -129,10 +131,14 @@
 
 // ************************* BL TOUCH - UBL LEVELING ************************ //
 		#if ENABLED(BLTOUCH)
-				#undef Z_MIN_PROBE_ENDSTOP_INVERTING
-				#define Z_MIN_PROBE_ENDSTOP_INVERTING false	//> enabled if using a build before July 2021. 
-				#undef Z_MIN_ENDSTOP_INVERTING
-				#define Z_MIN_ENDSTOP_INVERTING false		
+				//#undef Z_MIN_PROBE_ENDSTOP_INVERTING
+				//#define Z_MIN_PROBE_ENDSTOP_INVERTING false	//> enabled if using a build before July 2021. 		
+		    #define Z_MIN_ENDSTOP_HIT_STATE HIGH
+
+				//#undef Z_MIN_ENDSTOP_INVERTING
+				//#define Z_MIN_ENDSTOP_INVERTING false		
+    		#define Z_MIN_PROBE_ENDSTOP_HIT_STATE HIGH
+
 		#endif	//> BLTOUCH	
 		 
 // **************************** Probing Obstacles *************************** //
@@ -278,7 +284,7 @@
 	#define DISABLE_Y false
 	#define DISABLE_Z false
 	#define DISABLE_E false             //> Disable the extruder when not stepping
-	#define DISABLE_INACTIVE_EXTRUDER   //> Keep only the active extruder enabled
+	#define DISABLE_OTHER_EXTRUDERS   //> Keep only the active extruder enabled
 
 	#define ENDSTOP_NOISE_THRESHOLD 2
 
@@ -304,23 +310,23 @@
 // *********************** LEVEL BED CORNERS SETTINGS *********************** //
 
 	#if NONE(DWIN_CREALITY_LCD, DWIN_CREALITY_LCD_ENHANCED)
-		#define LEVEL_BED_CORNERS	//> Add a menu item to move between bed corners for manual bed adjustment
+		#define LCD_BED_TRAMMING	//> Add a menu item to move between bed corners for manual bed adjustment
 	#endif
 
-	#if ENABLED(LEVEL_BED_CORNERS)
-		#define LEVEL_CORNERS_INSET_LFRB { 30, 30, 30, 30 } //> (mm) Left, Front, Right, Back insets
-		#define LEVEL_CORNERS_HEIGHT      0.0   //> (mm) Z height of nozzle at leveling points, set to thickness of feeler gauge in use (default 0.0)
-		#define LEVEL_CORNERS_Z_HOP       4.0   //> (mm) Z height of nozzle between leveling points
-		#define LEVEL_CENTER_TOO              //> Move to the center after the last corner
-		//#define LEVEL_CORNERS_USE_PROBE
-		#if ENABLED(LEVEL_CORNERS_USE_PROBE)
-			#define LEVEL_CORNERS_PROBE_TOLERANCE 0.1
-			#define LEVEL_CORNERS_VERIFY_RAISED   //> After adjustment triggers the probe, re-probe to verify
-			//#define LEVEL_CORNERS_AUDIO_FEEDBACK
+	#if ENABLED(LCD_BED_TRAMMING)
+		#define BED_TRAMMING_INSET_LFRB { 30, 30, 30, 30 } //> (mm) Left, Front, Right, Back insets
+		#define BED_TRAMMING_HEIGHT      0.0   //> (mm) Z height of nozzle at leveling points, set to thickness of feeler gauge in use (default 0.0)
+		#define BED_TRAMMING_Z_HOP       4.0   //> (mm) Z height of nozzle between leveling points
+		#define BED_TRAMMING_INCLUDE_CENTER              //> Move to the center after the last corner
+		//#define BED_TRAMMING_USE_PROBE
+		#if ENABLED(BED_TRAMMING_USE_PROBE)
+			#define BED_TRAMMING_PROBE_TOLERANCE 0.1
+			#define BED_TRAMMING_VERIFY_RAISED   //> After adjustment triggers the probe, re-probe to verify
+			//#define BED_TRAMMING_AUDIO_FEEDBACK
 		#endif
 
-		#define LEVEL_CORNERS_LEVELING_ORDER { LF, LB } //> 3rd point is the center of the opposite edge
-	#endif	//> LEVEL_BED_CORNERS
+		#define BED_TRAMMING_LEVELING_ORDER { LF, LB } //> 3rd point is the center of the opposite edge
+	#endif	//> LCD_BED_TRAMMING
 
 // **************************** LCD BED LEVELING **************************** //
 
@@ -480,9 +486,7 @@
     #define X_MAX_ENDSTOP_HIT_STATE HIGH
     #define Y_MIN_ENDSTOP_HIT_STATE HIGH
     #define Y_MAX_ENDSTOP_HIT_STATE HIGH
-    #define Z_MIN_ENDSTOP_HIT_STATE HIGH
-    #define Z_MAX_ENDSTOP_HIT_STATE HIGH
-    #define Z_MIN_PROBE_ENDSTOP_HIT_STATE HIGH
+    #define Z_MAX_ENDSTOP_HIT_STATE HIGH		
 
 // ************************** Clean Nozzle Feature ************************** //
 	/**
