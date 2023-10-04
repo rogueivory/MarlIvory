@@ -3,7 +3,7 @@
 // ************************************************************************** //
 
   #pragma once
-  #define CONFIGURATION_H_VERSION 02010300
+  #define CONFIGURATION_SPEED_H_VERSION 02010300
 
 // **************************** Feedrate Settings *************************** //
   #if ENABLED(LIMIT_Z_SPEED_5)
