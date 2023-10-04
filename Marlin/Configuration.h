@@ -179,6 +179,34 @@
     #define PROBING_BED_TEMP     50
   #endif
 
+// **************************** Neopixel / EZNEO **************************** //
+
+  #if ENABLED(EZNEO_220)
+    #define RGB_LIGHTS
+
+    #define NEOPIXEL_LED
+    #if ENABLED(NEOPIXEL_LED)
+      #define NEOPIXEL_TYPE   NEO_GRB
+      #if DISABLED(NEOPIXEL_PIN)
+        #define NEOPIXEL_PIN     PA8     //> LED driving pin
+      #endif
+      #define NEOPIXEL_PIXELS 15       //> Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
+      #define NEOPIXEL_IS_SEQUENTIAL   //> Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
+      #define NEOPIXEL_BRIGHTNESS 127  //> Initial brightness (0-255)
+      #define NEOPIXEL_STARTUP_TEST  //> Cycle through colors at startup
+    #endif //> NEOPIXEL_LED
+
+		//#define NEOPIXEL_BKGD_ENABLE
+		#if ENABLED(NEOPIXEL_BKGD_ENABLE)
+			#define NEOPIXEL_BKGD_INDEX_FIRST  0              //> Index of the first background LED
+			#define NEOPIXEL_BKGD_INDEX_LAST   5              //> Index of the last background LED
+			#define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 }  //> R, G, B, W
+			#define NEOPIXEL_BKGD_ALWAYS_ON
+		#endif //> NEOPIXEL_BKGD_ENABLE
+
+    #define PRINTER_EVENT_LEDS
+  #endif //> EZNEO_220
+  
 // *************************** Additional Settings ************************** //
 
   #include "Configuration_backend.h"
